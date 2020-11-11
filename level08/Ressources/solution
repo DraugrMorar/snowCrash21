@@ -1,0 +1,23 @@
+На этом уровне у нас есть два файла:
+бинарный файл level08 и файл token. Что бы прочитать файл token у нас не достаточно прав.
+
+> ./level08
+-> ./level08 [file to read]
+Для работы бинарного файла нужен файл
+
+> ./level08 token
+-> You may not access 'token'
+
+Каким-то образом нужно открыть доступ к файлу token.
+
+> cd /tmp
+> mkdir test
+> cd test 
+> ln -s ~/token psw		(Создаем символическую ссылку на файл token в директории /tmp)
+> ~/level08 psw2
+-> quif5eloekouj29ke0vouxean
+
+
+flag08@SnowCrash:~$ getflag
+Check flag.Here is your token : 25749xKZ8L7DkSCwJkT9dyv6f
+

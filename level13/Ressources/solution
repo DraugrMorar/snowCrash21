@@ -1,0 +1,44 @@
+На этом уровне у нас есть бинарный файл level13.
+
+> ./level13
+-> UID 2013 started us but we we expect 4242
+
+Судя по выводу нам необходимо подменить  UID.
+По выводу работы команды ltrace, мы узнаем что здесь используется команда getuid().
+Запускаем бинарный файл в gdb.
+
+> disassemble
+cmp    $0x1092,%eax
+
+Команда CMP используется для сравнения двух операндов. В нашем случае сравнивается регистр %eax с 4242 числом.
+Значение регистра eax изменяется после функции  getuid. Ставим брейкпойнт на этой функции и изменяем значение регистра eax и запускаем программу.
+
+(gdb) start level13
+
+(gdb) f 			(где расположена наша точка дебага)
+#0  0x0804858f in main ()
+
+(gdb) info registers
+eax            0x2	2
+
+(gdb) b getuid		(ставим breakpoint на функции getuid, мв должны сменить значение еах после этой функции)
+Breakpoint 16 at 0xb7ee4cc0
+
+(gdb) step			(останавливаемся на функции )
+Breakpoint 16, 0xb7ee4cc0 in getuid () from /lib/i386-linux-gnu/libc.so.6
+
+(gdb) step			(идем дальше)
+
+(gdb) info registers (проверяем чему равен наш регистр)
+eax            0x7dd	2013
+
+(gdb) set $eax=4242 (устанавливаем нужное нам значение регистра)
+(gdb) info registers
+eax            0x1092	4242
+
+(gdb) c					(Continuing)
+
+Результат работы нашего бинарника:
+your token is 2A31L79asukciNyi8uppkEuSx
+
+

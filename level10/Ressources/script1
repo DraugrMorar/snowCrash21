@@ -1,0 +1,13 @@
+#!/bin/sh
+
+while [ 1 ]
+
+do
+
+touch /tmp/test/file
+rm -rf /tmp/test/file
+ln -s ~/token /tmp/test/file
+touch /tmp/test/file
+rm -rf /tmp/test/file
+
+done

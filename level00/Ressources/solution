@@ -1,0 +1,18 @@
+Ищем файлы принадлежащие юзеру flag00 с помощью команды
+
+> find / -user flag00
+
+И находим файл /usr/sbin/john.
+
+> cat /usr/sbin/john (Смотрим содержимое файла)
+> cdiiddwpgswtgt (Находим некий шифр)
+
+Это шифр Цезаря (https://www.dcode.fr/caesar-cipher) вводим нашу строку и получаем
+
+nottoohardhere (со сдвигом 15)
+
+> su flag00
+> Password: nottoohardhere
+> getflag
+> Check flag.Here is your token : x24ti5gi3x0ol2eh4esiuxias
+

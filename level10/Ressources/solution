@@ -1,0 +1,43 @@
+На этом уровне так же два файла: бинарный файл level10 и файл token.
+
+> cat token
+cat: token: Permission denied
+
+> ./level10
+./level10 file host
+	sends file to host if you have access to it
+
+> ./level10 token 127.0.0.1
+You don't have access to token
+
+В бинарном файле видим строку:
+Connecting to %s:6969
+
+Метод с созданием символической функции не работает.
+
+> ltrace ./level10 token 127.0.0.1		(отслеживаем вызовы библиотек при выполнении программы)
+access("token", 4)                                                        = -1
+printf("You don't have access to %s\n", "token"You don't have access to token
+)
+
+Читаем о функции access в man.
+The  check is done using the calling process's real UID and GID, rather than the effective IDs as is done when actually attempting an operation (e.g., open(2)) on the file.
+
+Читаем про эффективные и реальные UID и GID подробнее.
+Мы можем обмануть систему, если запустим файл с разными uid и gid. Создадим два скрипта script1 b script2 в папке /tmp/test.
+В одном скрипте будем бесконечно запускать создание файла под нашим uid/gid, удаление файла и создание и удаление символьной ссылки на файл token, а в другом скрипте так же запустим бесконечный цикл с запуском ./level10
+
+Запускаем скрипты и запускаем команду для прослушивания порта 6969:
+
+nc -lk 6969
+
+Видим что иногда проскакивает строчка, останавливаем прослушивание порта и видим пароль:
+
+.*( )*.
+woupa2yuojeeaaed06riuj63c
+.*( )*.
+
+> su flag10
+Password: woupa2yuojeeaaed06riuj63c
+> getflag
+Check flag.Here is your token : feulo4b72j7edeahuete3no7c

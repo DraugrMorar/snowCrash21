@@ -1,0 +1,32 @@
+На этом уровне так же два файла: бинарный файл level09 и файл token.
+
+> cat token
+-> f4kmm6p|=�p�n��DB�Du{��
+
+> ./level09
+-> You need to provied only one arg.
+
+> ./level09 token
+tpmhr
+
+> ARG=`cat ~/token`
+> ./level09 $ARG
+> f5mpq;v�E��{�{��TS�W�����
+
+> ./level09 AAAAAAAAAAA
+ABCDEFGHIJK
+
+level09 это шифр, который сдвигает каждую следующую букву на n+1
+А в файле token у нас строчка, которая уже прошла подобное преобразование и вышла за пределы таблицы ascii.
+Пишем программу дешифратор в папке /tmp/test
+> vim deshifr.c
+
+
+> gcc deshifr.c
+> ./a.out $ARG
+-> f3iji1ju5yuevaus41q1afiuq
+
+> su flag09
+Password: f3iji1ju5yuevaus41q1afiuq
+> getflag
+-> Check flag.Here is your token : s5cAJpM8ev6XHw998pRWG728z

