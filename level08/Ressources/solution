@@ -14,10 +14,11 @@
 > mkdir test
 > cd test 
 > ln -s ~/token psw		(Создаем символическую ссылку на файл token в директории /tmp)
-> ~/level08 psw2
+> ~/level08 psw
 -> quif5eloekouj29ke0vouxean
 
-
-flag08@SnowCrash:~$ getflag
-Check flag.Here is your token : 25749xKZ8L7DkSCwJkT9dyv6f
+> su flag08
+Password: quif5eloekouj29ke0vouxean
+> getflag
+-> Check flag.Here is your token : 25749xKZ8L7DkSCwJkT9dyv6f
 
