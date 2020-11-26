@@ -1,0 +1,58 @@
+
+Запускаем gdb начинаем дебаг и ставим два брейкпойнта на функциях ptrace и getuid.
+
+(gdb) start
+Temporary breakpoint 4 at 0x804894a
+Starting program: /rofs/bin/getflag
+
+Temporary breakpoint 4, 0x0804894a in main ()
+(gdb) b ptrace
+Breakpoint 2 at 0xb7f146d0
+(gdb) b getuid
+Breakpoint 3 at 0xb7ee4cc0
+(gdb) info b
+Num     Type           Disp Enb Address    What
+2       breakpoint     keep y   0xb7f146d0 <ptrace>
+3       breakpoint     keep y   0xb7ee4cc0 <getuid>
+
+
+
+
+Шагаем в функцию ptrace и делаем шаг из этой функции: 
+
+(gdb) step
+Single stepping until exit from function main,
+which has no line number information.
+
+Breakpoint 2, 0xb7f146d0 in ptrace () from /lib/i386-linux-gnu/libc.so.6
+(gdb) step
+Single stepping until exit from function ptrace,
+which has no line number information.
+0x0804898e in main ()
+
+
+Устанавливаем значение регистра eax (был -1, меняем на положительное число):
+
+(gdb) set $eax=1
+
+
+Шагаем на следующий брейк пойнт(функция getuid), и выходим из этой функции и изменяем значение регистра eax на нужный нам uid:
+
+(gdb) step
+Single stepping until exit from function main,
+which has no line number information.
+
+Breakpoint 3, 0xb7ee4cc0 in getuid () from /lib/i386-linux-gnu/libc.so.6
+(gdb) step
+Single stepping until exit from function getuid,
+which has no line number information.
+0x08048b02 in main ()
+(gdb) set $eax=3014
+
+
+3014 - это uid юзера flag14. Отпускаем программу и она завершается с выводом нужного нам флага:
+
+
+(gdb) c
+Continuing.
+Check flag.Here is your token : 7QiHafiNa3HVozsaXkawuYrTstxbpABHD8CPnHJ
