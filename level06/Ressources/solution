@@ -6,7 +6,9 @@ PHP Warning:  file_get_contents(): Filename cannot be empty in /home/user/level0
 
 > vim /tmp/scr				(создаем файл со следующим содержимым)
 [x ${`getflag`}]
-(по коду ищет [x что-то] и далее вызывает вторую функцию y с переменной ${`getflag`}. Такая конструкция ${} используются чтобы php обратился к переменной с именем `getflag`, но такой переменной нет в скрипте и php выведет ошибку, что переменная `getflag` не определена. `` делает вызов getflag)
+(по коду ищет [x что-то] и далее вызывает вторую функцию y с переменной ${`getflag`}. Такая конструкция ${} используются
+чтобы php обратился к переменной с именем `getflag`, но такой переменной нет в скрипте и php выведет ошибку,
+что переменная `getflag` не определена. `` делает вызов getflag)
 
 > ./level06 /tmp/scr
 -> PHP Notice:  Undefined variable: Check flag.Here is your token : wiok45aaoguiboiki2tuin6ub
